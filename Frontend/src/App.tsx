@@ -1,11 +1,22 @@
-import './index.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
 
 function App() {
 
   return (
-    <>
-      <div className="bg-amber-50">Hej</div>
-    </>
+    <BrowserRouter>
+
+      {/* Navigation */}
+      <Navbar /> 
+
+      {/* Routes */}
+      <Routes>
+        <Route path="/guide" element={""} />
+        <Route path="/score" element={"0"} />
+        <Route path="/about" element={""} />
+      </Routes>
+    
+    </BrowserRouter>
   )
 }
 
