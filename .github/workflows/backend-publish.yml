@@ -28,7 +28,8 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t vicciviccison/VRGameServerApp:latest VRGameServerApp.DockerFile
+        run: docker build -t vicciviccison/VRGameServerApp:latest Backend/VRGameServerApp.DockerFile
 
       - name: Push Docker image
         run: docker push vicciviccison/VRGameServerApp:latest
+
