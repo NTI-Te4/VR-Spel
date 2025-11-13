@@ -1,4 +1,4 @@
-name: Build and Push skibiloader with docker
+name: Build and Push VR backend with docker
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t vicciviccison/VRGameServerApp:latest Backend/VRGameServerApp.DockerFile
+        run: docker build -t vicciviccison/vrgameserverapp:latest -f Backend/VRGameServerApp.DockerFile .
 
       - name: Push Docker image
         run: docker push vicciviccison/VRGameServerApp:latest

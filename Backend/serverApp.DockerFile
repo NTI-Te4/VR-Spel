@@ -11,8 +11,8 @@ FROM eclipse-temurin:24-jdk-alpine
 
 WORKDIR /app
 
-COPY --from=build /app/target/skibiloader-1.0.0.jar ./skibiloader.jar
+COPY --from=build /app/target/*.jar ./VRServerApp.jar
 
 EXPOSE 8001
 
-CMD ["java", "-jar", "skibiloader.jar"]
+CMD ["java", "-jar", "VRServerApp.jar"]
