@@ -1,0 +1,6 @@
+se/bytebase/vr_server/model/ScoreModel.class
+se/bytebase/vr_server/controller/ScoreController.class
+se/bytebase/vr_server/ServerApplication.class
+se/bytebase/vr_server/facade/ScoreFacade.class
+se/bytebase/vr_server/repository/ScoreRepository.class
+se/bytebase/vr_server/dto/ScoreRequest.class
