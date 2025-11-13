@@ -1,5 +1,18 @@
-FROM openjdk:24-jdk
-ARG JAR_FILE=server/target/*.jar
+FROM maven:latest AS build
 
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+WORKDIR /app
+
+COPY pom.xml .
+COPY src ./src
+
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:24-jdk-alpine
+
+WORKDIR /app
+
+COPY --from=build /app/target/skibiloader-1.0.0.jar ./skibiloader.jar
+
+EXPOSE 8001
+
+CMD ["java", "-jar", "skibiloader.jar"]
