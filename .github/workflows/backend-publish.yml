@@ -31,4 +31,4 @@ jobs:
         run: docker build -t vicciviccison/vrgameserverapp:latest -f Backend/VRGameServerApp.DockerFile .
 
       - name: Push Docker image
-        run: docker push vicciviccison/VRGameServerApp:latest
+        run: docker push vicciviccison/vrgameserverapp:latest
