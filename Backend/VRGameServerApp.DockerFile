@@ -2,8 +2,8 @@ FROM maven:latest AS build
 
 WORKDIR /app
 
-COPY pom.xml .
-COPY src ./src
+COPY Backend/pom.xml .
+COPY Backend/src ./src
 
 RUN mvn clean package -DskipTests
 
