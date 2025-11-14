@@ -1,0 +1,23 @@
+server:
+  port: ${SERVER_PORT:8001}  # Default to 8001 to match Dockerfile, but configurable via env var
+
+spring:
+  application:
+    name: server
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/unityvr_db}  # Use env var, fallback to localhost
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+# Configuration for Docker environment
+docker:
+  enabled: ${DOCKER_ENABLED:false}
