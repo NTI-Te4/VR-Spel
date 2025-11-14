@@ -1,8 +1,0 @@
-/home/victor/Code/Te4/VR-Spel/Backend/src/main/java/se/bytebase/vr_server/ServerApplication.java
-/home/victor/Code/Te4/VR-Spel/Backend/src/main/java/se/bytebase/vr_server/config/WebSocketConfig.java
-/home/victor/Code/Te4/VR-Spel/Backend/src/main/java/se/bytebase/vr_server/controller/ScoreController.java
-/home/victor/Code/Te4/VR-Spel/Backend/src/main/java/se/bytebase/vr_server/dto/ScoreRequest.java
-/home/victor/Code/Te4/VR-Spel/Backend/src/main/java/se/bytebase/vr_server/facade/ScoreFacade.java
-/home/victor/Code/Te4/VR-Spel/Backend/src/main/java/se/bytebase/vr_server/model/ScoreModel.java
-/home/victor/Code/Te4/VR-Spel/Backend/src/main/java/se/bytebase/vr_server/repository/ScoreRepository.java
-/home/victor/Code/Te4/VR-Spel/Backend/src/main/java/se/bytebase/vr_server/websocket/ScoreWebSocketController.java
