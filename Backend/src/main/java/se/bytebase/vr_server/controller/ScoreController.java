@@ -1,36 +1,42 @@
 package se.bytebase.vr_server.controller;
 
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import se.bytebase.vr_server.dto.ScoreRequest;
 import se.bytebase.vr_server.model.ScoreModel;
 import se.bytebase.vr_server.repository.ScoreRepository;
 import se.bytebase.vr_server.facade.ScoreFacade;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/score")
 public class ScoreController {
 
     private final ScoreRepository scoreRepository;
+    private final SimpMessagingTemplate messagingTemplate;
 
-    public ScoreController(ScoreRepository scoreRepository) {
+    public ScoreController(ScoreRepository scoreRepository, SimpMessagingTemplate messagingTemplate) {
         this.scoreRepository = scoreRepository;
+        this.messagingTemplate = messagingTemplate;
     }
 
     @PostMapping("/addscore")
     public ResponseEntity<?> addScore(@RequestBody ScoreRequest scoreRequest) {
-        boolean success = ScoreFacade.addScore(
+        ScoreModel savedScore = ScoreFacade.addScore(
                 scoreRequest.getUsername(),
                 scoreRequest.getScore(),
                 scoreRequest.getTime(),
                 scoreRepository
         );
 
-        if (success) {
+        if (savedScore != null) {
+
+            List<ScoreModel> allScores = ScoreFacade.getAllScores(scoreRepository);
+
+            messagingTemplate.convertAndSend("/topic/scores", allScores);
+
             return ResponseEntity.ok("Score added successfully");
         } else {
             return ResponseEntity.internalServerError().body("Failed to add score");
@@ -39,11 +45,12 @@ public class ScoreController {
 
     @GetMapping("/getScore")
     public List<ScoreModel> getScores() {
-        return scoreRepository.findAll();
+        return ScoreFacade.getAllScores(scoreRepository);
     }
 
     @GetMapping("/getScore/{username}")
     public List<ScoreModel> getScoresByName(@PathVariable String username) {
-        return scoreRepository.findByUsername(username);
+        return ScoreFacade.getScoresByUser(username, scoreRepository);
     }
+
 }
