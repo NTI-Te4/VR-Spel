@@ -3,12 +3,15 @@ package se.bytebase.vr_server.controller;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.bytebase.vr_server.dto.RankedScoreDto;
 import se.bytebase.vr_server.dto.ScoreRequest;
 import se.bytebase.vr_server.model.ScoreModel;
 import se.bytebase.vr_server.repository.ScoreRepository;
 import se.bytebase.vr_server.facade.ScoreFacade;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @RestController
 @RequestMapping("/api/score")
@@ -31,9 +34,9 @@ public class ScoreController {
 
     if (savedScore != null) {
 
-      List<ScoreModel> allScores = ScoreFacade.getAllScores(scoreRepository);
+      List<RankedScoreDto> rankedScores = ScoreFacade.getRankedScoresWithRanksProper(scoreRepository);
 
-      messagingTemplate.convertAndSend("/topic/scores", allScores);
+      messagingTemplate.convertAndSend("/topic/rankedScores", rankedScores);
 
       return ResponseEntity.ok("Score added successfully");
     } else {
@@ -45,10 +48,25 @@ public class ScoreController {
   public List<ScoreModel> getScores() {
     return ScoreFacade.getAllScores(scoreRepository);
   }
+  
+  @GetMapping("/getRankedScores")
+  public List<RankedScoreDto> getRankedScores() {
+    return ScoreFacade.getRankedScoresWithRanksProper(scoreRepository);
+  }
 
   @GetMapping("/getScore/{username}")
   public List<ScoreModel> getScoresByName(@PathVariable String username) {
     return ScoreFacade.getScoresByUser(username, scoreRepository);
+  }
+  
+  @GetMapping("/getRankedScore/{username}")
+  public List<RankedScoreDto> getRankedScoresByName(@PathVariable String username) {
+    List<RankedScoreDto> allRankedScores = ScoreFacade.getRankedScoresWithRanksProper(scoreRepository);
+    
+    // Filter to only include scores for the specified user
+    return allRankedScores.stream()
+        .filter(score -> score.getUsername().equals(username))
+        .collect(Collectors.toList());
   }
 
 }
