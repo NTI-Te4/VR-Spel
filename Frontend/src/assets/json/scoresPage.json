@@ -1,0 +1,34 @@
+{
+    "title": "Leaderboard",
+    
+    "board": {
+        "rank": "Rank",
+        "name": "Name",
+        "score": "Score",
+        "time": "Time",
+        "date": "Date"
+    },
+
+    "searchBar": {
+        "placeholder": "Search by username...",
+        "searchBtn": "Search"
+    },
+
+    "credits": {
+        "frontend": {
+            "jack": "Jack Minayerdji",
+            "jonas": "Jonas Rasmi"
+        },
+        
+        "backend": {
+            "victor": "Victor Fernandez Suarez",
+            "leon": "Leon babushka"
+        },
+
+        "unity": {
+            "hugo": "Hugo Fugo",
+            "hampus": "Hampus Lampus"
+        }
+    }
+
+}

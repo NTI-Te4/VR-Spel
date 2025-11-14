@@ -1,60 +1,31 @@
 import Badge from "../assets/img/badge.webp";
 import Magnifier from "../assets/img/magnifier.webp";
+import Board from "../component/board";
 
 function Scores() {
   return (
-    <>
-      <div className="leaderboard">
-        <img src={Badge} alt="badge" />
+    <div>
+      <header className="flex justify-center items-center gap-10  text-4xl sm:text-4xl md:text-5xl lg:text-8xl font-black w-fit m-auto mt-5 text-(--text-color) [&>.badge]:w-12 [&>.badge]:sm:w-10 [&>.badge]:md:w-14 [&>.badge]:lg:w-18 ">
+        <img className="badge" src={Badge} alt="badge" />
         <h1>Leaderboard</h1>
-        <img src={Badge} alt="badge" />
-      </div>
+        <img className="badge" src={Badge} alt="badge" />
+      </header>
 
-      <main className="leaderboard-info">
-        <div>
-          <span>{}</span>
-          <span>
-            <label>{}</label>
-            <label>{}</label>
-            <label>{}</label>
-          </span>
-        </div>
-        <div>
-          {/* MAKE THIS A COMPONENT */}
-          <span>{}</span>
-          <span>
-            <label>{}</label>
-            <label>{}</label>
-            <label>{}</label>
-          </span>
-        </div>
+      <main className="">
+        <Board />
       </main>
 
       <form>
-        <img src={Magnifier} alt="magnifier" />
+        {/* CHANGE THE MAGNIFIER IMAGE, STYLING DONT WORK ON IT */}
+        <img className="w-12" src={Magnifier} alt="magnifier" /> 
         <input type="text" placeholder={""} />
         <button>{}</button>
       </form>
 
       <footer>
-        <article>
-          {" "}
-          {/* MAKE INTO A COMPONENT */}
-          <h2>{}</h2>
-          <p>{}</p>
-        </article>
 
-        <article>
-          <h2>{}</h2>
-          <p>{}</p>
-        </article>
-
-        <article>
-          <h2>{}</h2>
-          <p>{}</p>
-        </article>
       </footer>
-    </>
+    </div>
   );
 }
 
