@@ -3,7 +3,7 @@ name: Deploy to Dev with Docker Compose
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   deploy:
