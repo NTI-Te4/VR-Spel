@@ -27,7 +27,7 @@ function Scores() {
       score={entry.score}
       date={entry.uploaded}
     />
-  ))
+  )) 
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,14 +35,14 @@ function Scores() {
 
   return (
     <div className=" flex flex-col justify-around items-center h-screen overflow-auto">
-      <header className="flex gap-4 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-(--text-color) [&>.badge]:w-12 [&>.badge]:sm:w-10 [&>.badge]:md:w-16 [&>.badge]:lg:w-24 ">
+      <header className="flex gap-4 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-(--text-color) [&>.badge]:w-12 [&>.badge]:sm:w-12 [&>.badge]:md:w-16 [&>.badge]:lg:w-24 ">
         <img className="badge" src={Badge} alt="badge" />
         <h1>{TextData.title}</h1>
         <img className="badge" src={Badge} alt="badge" />
       </header>
 
       <main className="block space-y-6 h-3/5 lg:w-3/5 w-4/5 overflow-y-auto bg-(--panel-color)/50 rounded-2xl p-5">
-        {/* Fix allignment*/}
+        {/* Fix alignment between info board and child board*/}
         <Board
           bgColor="bg-(--darkSecondary-color)/75"
           margin="mb-20"
