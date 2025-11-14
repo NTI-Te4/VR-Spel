@@ -7,19 +7,20 @@ import java.util.List;
 
 public class ScoreFacade {
 
-    public static ScoreModel addScore(String username, int score, String time, ScoreRepository repo) {
-        // Validation logic
-        if (username == null || username.isEmpty()) return null;
+  public static ScoreModel addScore(String username, int score, ScoreRepository repo) {
+    // Validation logic
+    if (username == null || username.isEmpty())
+      return null;
 
-        ScoreModel scoreModel = new ScoreModel(username, score, time);
-        return repo.save(scoreModel);
-    }
+    ScoreModel scoreModel = new ScoreModel(username, score);
+    return repo.save(scoreModel);
+  }
 
-    public static List<ScoreModel> getAllScores(ScoreRepository repo) {
-        return repo.findAll();
-    }
+  public static List<ScoreModel> getAllScores(ScoreRepository repo) {
+    return repo.findAll();
+  }
 
-    public static List<ScoreModel> getScoresByUser(String username, ScoreRepository repo) {
-        return repo.findByUsername(username);
-    }
+  public static List<ScoreModel> getScoresByUser(String username, ScoreRepository repo) {
+    return repo.findByUsername(username);
+  }
 }
