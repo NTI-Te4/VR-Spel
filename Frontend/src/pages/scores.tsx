@@ -1,5 +1,5 @@
-import Badge from "../assets/badge.webp";
-import Magnifier from "../assets/magnifier.webp";
+import Badge from "../assets/img/badge.webp";
+import Magnifier from "../assets/img/magnifier.webp";
 
 function Scores() {
   return (
