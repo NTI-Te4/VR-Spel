@@ -39,8 +39,8 @@ jobs:
             # Pull the latest image
             docker pull vicciviccison/vrgameserverapp:latest
             # Stop any existing containers
-            docker-compose -f docker-compose.yml down || true
+            docker compose -f docker-compose.yml down || true
             # Start the services in detached mode
-            docker-compose -f docker-compose.yml up -d
+            docker compose -f docker-compose.yml up -d
             # Verify the services are running
-            docker-compose -f docker-compose.yml ps
+            docker compose -f docker-compose.yml ps
