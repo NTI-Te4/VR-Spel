@@ -13,27 +13,23 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EntityListeners(org.springframework.data.jpa.domain.support.AuditingEntityListener.class)
 public class ScoreModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long id;
+  private Long id;
 
-    @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime Uploaded;
+  @CreatedDate
+  @Column(nullable = false)
+  private LocalDateTime Uploaded;
 
-    @Column(nullable = false, unique = true)
-    private String username;
+  @Column(nullable = false, unique = true)
+  private String username;
 
-    @Column(nullable = false)
-    private int score;
+  @Column(nullable = false)
+  private int score;
 
-    @Column(nullable = false)
-    private String time;
-
-    public ScoreModel(String username, int score, String time) {
-        this.username = username;
-        this.score = score;
-        this.time = time;
-    }
+  public ScoreModel(String username, int score) {
+    this.username = username;
+    this.score = score;
+  }
 }

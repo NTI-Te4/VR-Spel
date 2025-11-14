@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ScoreRequest {
-    private String username;
-    private int score;
-    private String time;
+  private String username;
+  private int score;
 }

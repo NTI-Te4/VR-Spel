@@ -14,43 +14,41 @@ import java.util.List;
 @RequestMapping("/api/score")
 public class ScoreController {
 
-    private final ScoreRepository scoreRepository;
-    private final SimpMessagingTemplate messagingTemplate;
+  private final ScoreRepository scoreRepository;
+  private final SimpMessagingTemplate messagingTemplate;
 
-    public ScoreController(ScoreRepository scoreRepository, SimpMessagingTemplate messagingTemplate) {
-        this.scoreRepository = scoreRepository;
-        this.messagingTemplate = messagingTemplate;
+  public ScoreController(ScoreRepository scoreRepository, SimpMessagingTemplate messagingTemplate) {
+    this.scoreRepository = scoreRepository;
+    this.messagingTemplate = messagingTemplate;
+  }
+
+  @PostMapping("/addscore")
+  public ResponseEntity<?> addScore(@RequestBody ScoreRequest scoreRequest) {
+    ScoreModel savedScore = ScoreFacade.addScore(
+        scoreRequest.getUsername(),
+        scoreRequest.getScore(),
+        scoreRepository);
+
+    if (savedScore != null) {
+
+      List<ScoreModel> allScores = ScoreFacade.getAllScores(scoreRepository);
+
+      messagingTemplate.convertAndSend("/topic/scores", allScores);
+
+      return ResponseEntity.ok("Score added successfully");
+    } else {
+      return ResponseEntity.internalServerError().body("Failed to add score");
     }
+  }
 
-    @PostMapping("/addscore")
-    public ResponseEntity<?> addScore(@RequestBody ScoreRequest scoreRequest) {
-        ScoreModel savedScore = ScoreFacade.addScore(
-                scoreRequest.getUsername(),
-                scoreRequest.getScore(),
-                scoreRequest.getTime(),
-                scoreRepository
-        );
+  @GetMapping("/getScore")
+  public List<ScoreModel> getScores() {
+    return ScoreFacade.getAllScores(scoreRepository);
+  }
 
-        if (savedScore != null) {
-
-            List<ScoreModel> allScores = ScoreFacade.getAllScores(scoreRepository);
-
-            messagingTemplate.convertAndSend("/topic/scores", allScores);
-
-            return ResponseEntity.ok("Score added successfully");
-        } else {
-            return ResponseEntity.internalServerError().body("Failed to add score");
-        }
-    }
-
-    @GetMapping("/getScore")
-    public List<ScoreModel> getScores() {
-        return ScoreFacade.getAllScores(scoreRepository);
-    }
-
-    @GetMapping("/getScore/{username}")
-    public List<ScoreModel> getScoresByName(@PathVariable String username) {
-        return ScoreFacade.getScoresByUser(username, scoreRepository);
-    }
+  @GetMapping("/getScore/{username}")
+  public List<ScoreModel> getScoresByName(@PathVariable String username) {
+    return ScoreFacade.getScoresByUser(username, scoreRepository);
+  }
 
 }
