@@ -12,6 +12,8 @@ function Scores() {
 
   useEffect(() => {
     axios
+      //NOTE: you can just do /api/score/getScore/name 
+      // to get your search results! 
       .get("/api/score/getScore")
       .then(res => setBoards(res.data))
       .catch((err) => console.error(err));
@@ -63,7 +65,7 @@ function Scores() {
       >
         
         <img className="w-8" src={Magnifier} alt="magnifier" />
-        {/* Sanitize Input */}
+        {/* Sanitize Input & fix search*/}
         <input
           className="text-black font-bold w-full indent-2 outline-none"
           type="text"
