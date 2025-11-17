@@ -35,7 +35,7 @@ jobs:
           password: ${{ secrets.SERVER_PASS }}
           port: 2323
           script: |
-            cd /home/${{ secrets.USERNAME }}/projekt
+            cd /home/${{ secrets.USERNAME }}/htdocs/ntivr.bytebase.se/
             # Pull the latest image
             docker pull vicciviccison/vrgameserverapp:latest
             # Stop any existing containers
