@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT:8001}  # Default to 8001 to match Dockerfile, but configurable via env var
+  port: ${SERVER_PORT:8002}  # Default to 8001 to match Dockerfile, but configurable via env var
 
 spring:
   application:
@@ -17,6 +17,17 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+
+# Logging configuration for Docker
+logging:
+  level:
+    se.bytebase.vr_server: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: application.log
 
 # Configuration for Docker environment
 docker:
