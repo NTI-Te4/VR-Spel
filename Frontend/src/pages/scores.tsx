@@ -5,7 +5,6 @@ import TextData from "../assets/json/scorePage.json";
 import { useEffect, useState, type FormEvent } from "react";
 import cleanInput from "../component/cleanInput";
 import axios from "axios";
-import { data } from "react-router-dom";
 
 function Scores() {
   const [search, setSearch] = useState<string>("");
@@ -15,11 +14,11 @@ function Scores() {
   useEffect(() => {
     const fetchScores = async () => {
       try {
-        const res = search 
+        const res = search
         ? await axios.get(`/api/score/getRankedScore/${search}`)
         : await axios.get('/api/score/getRankedScores');
       setBoards(res.data);
-      console.log(res.data)
+
       } catch (err) {
         console.log(err);
       }
@@ -64,11 +63,7 @@ function Scores() {
           date={TextData.board.date}
           time={TextData.board.time}
         />
-        {!data ? (
-          <div className="m-auto">Loading data...</div>
-        ) : (
-          boardMapper()
-        )}
+        {boardMapper()}
       </main>
 
       <form
