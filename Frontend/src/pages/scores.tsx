@@ -5,6 +5,7 @@ import TextData from "../assets/json/scorePage.json";
 import { useState, useEffect, type FormEvent } from "react";
 import { type BoardEntry } from "../component/board";
 import axios from "axios";
+import cleanInput from "../component/cleanInput";
 
 function Scores() {
   const [search, setSearch] = useState<string>("");
@@ -12,24 +13,25 @@ function Scores() {
 
   useEffect(() => {
     axios
-      //NOTE: you can just do /api/score/getScore/name 
-      // to get your search results! 
+      // NOTE: you can just do /api/score/getScore/name
+      // to get your search results!
       .get("/api/score/getScore")
-      .then(res => setBoards(res.data))
+      .then((res) => setBoards(res.data))
       .catch((err) => console.error(err));
   }, []);
 
-  const boardMapper = () => boards.map((entry, index) => (
-    // LIMITS: cut username by length 10
-    <Board 
-      bgColor="bg-(--secondary-color)"
-      key={index}
-      rank={`#${index}`}
-      name={entry.username}
-      score={entry.score}
-      date={entry.uploaded}
-    />
-  )) 
+  const boardMapper = () =>
+    boards.map((entry, index) => (
+      // LIMITS: cut username by length 10 (Done)
+      <Board
+        bgColor="bg-(--secondary-color)"
+        key={index}
+        rank={`#${index}`}
+        name={entry.username.slice(0,10)}
+        score={Number(entry.score.toString().slice(0,5))}
+        date={entry.uploaded.slice(0,10)}
+      />
+    ));
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,29 +49,31 @@ function Scores() {
         {/* Fix alignment between info board and child board*/}
         <Board
           bgColor="bg-(--darkSecondary-color)/75"
-          margin="mb-20"
+          margin="mb-14"
           rank={TextData.board.rank}
           name={TextData.board.name}
           score={TextData.board.score}
           date={TextData.board.date}
         />
-        {!boards 
-          ? <div className="m-auto">Loading data...</div> 
-          : boardMapper()
-        }
+        {!boards ? (
+          <div className="m-auto">Loading data...</div>
+        ) : (
+          boardMapper()
+        )}
       </main>
 
       <form
         onSubmit={handleSubmit}
         className="flex gap-2 justify-between items-center text-center bg-white border-2 border-(--primary-color) w-80 lg:w-lg md:w-md sm:w-sm p-2 md:p-4 lg:p-4 sm:p-4 rounded-2xl"
       >
-        
         <img className="w-8" src={Magnifier} alt="magnifier" />
-        {/* Sanitize Input & fix search*/}
+        {/* Sanitize Input (Done) & fix search*/}
         <input
+          onChange={(e) => cleanInput(e.target.value)}
           className="text-black font-bold w-full indent-2 outline-none"
           type="text"
           placeholder={TextData.searchBar.placeholder}
+          value={search}
         />
         <button className="bg-(--primary-color) px-5 py-1 rounded text-(--text-color) font-black hover:opacity-85 border-b-6 border-2 border-(--secondary-color) active:border-2 transition-opacity duration-300">
           {TextData.searchBar.searchBtn}

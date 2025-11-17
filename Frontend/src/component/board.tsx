@@ -22,7 +22,7 @@ function Board({
 }) {
   return (
     <div
-      className={`flex text-center items-center justify-around rounded-lg ${margin} ${
+      className={`grid grid-cols-[80px_1fr_80px_1fr] items-center text-center rounded-lg ${margin} ${
         bgColor ? bgColor : "bg-(--secondary-color)"
       } w-full h-[15%] font-bold text-(--text-color) text-[18px] md:text-2xl lg:text-3xl`}
     >
