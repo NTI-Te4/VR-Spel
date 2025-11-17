@@ -1,9 +1,16 @@
 server:
-  port: ${SERVER_PORT:8002}  # Default to 8001 to match Dockerfile, but configurable via env var
+  port: ${SERVER_PORT:8002}  # Default to 8002 to match Dockerfile, but configurable via env var
 
 spring:
   application:
     name: server
+
+  web:
+    resources:
+      static-locations: classpath:/static/,classpath:/public/,file:./resources/static/,file:./static/
+      # Enable cache for production, disable for development
+      cache:
+        period: 3600 # 1 hour cache
 
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/unityvr_db}  # Use env var, fallback to localhost
