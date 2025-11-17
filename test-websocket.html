@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+    <h2>WebSocket Connection Test</h2>
+    <div id="messages"></div>
+    <button onclick="connect()">Connect</button>
+    <button onclick="disconnect()">Disconnect</button>
+    <button onclick="sendName()">Send Name</button>
+    <input type="text" id="name" placeholder="Enter your name"/>
+    
+    <script>
+        var stompClient = null;
+        
+        function connect() {
+            var socket = new WebSocket('ws://localhost:8001/gs-guide-websocket');
+            stompClient = Stomp.over(socket);
+            
+            stompClient.connect({}, function(frame) {
+                console.log('Connected: ' + frame);
+                addMessage('Connected: ' + frame);
+                
+                // Subscribe to the topic
+                stompClient.subscribe('/topic/scores', function(message) {
+                    console.log('Received scores: ' + message.body);
+                    addMessage('Scores received: ' + message.body);
+                });
+            });
+        }
+        
+        function disconnect() {
+            if (stompClient !== null) {
+                stompClient.disconnect();
+            }
+            console.log('Disconnected');
+            addMessage('Disconnected');
+        }
+        
+        function sendName() {
+            if (stompClient !== null) {
+                var name = document.getElementById('name').value;
+                stompClient.send("/app/hello", {}, JSON.stringify({'name': name}));
+            }
+        }
+        
+        function addMessage(message) {
+            document.getElementById('messages').innerHTML += '<p>' + message + '</p>';
+        }
+    </script>
+</body>
+</html>
