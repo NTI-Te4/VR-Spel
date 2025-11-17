@@ -2,7 +2,7 @@ export interface BoardEntry {
   rank: string,
   username: string,
   score: string | number,
-  uploaded: string
+  date: string
 }
 
 function Board({
@@ -11,6 +11,7 @@ function Board({
   name,
   score,
   date,
+  time,
   margin,
 }: {
   bgColor?: string;
@@ -18,11 +19,12 @@ function Board({
   name: string;
   score: string | number;
   date: string;
+  time: string,
   margin?: string;
 }) {
   return (
     <div
-      className={`grid grid-cols-4 items-center text-center rounded-lg ${margin} ${
+      className={`grid grid-cols-5 items-center text-center rounded-lg ${margin} ${
         bgColor ? bgColor : "bg-(--secondary-color)"
       } w-full h-[15%] font-bold text-(--text-color) text-[16px] sm:text-[20px] md:text-2xl lg:text-3xl`}
     >
@@ -30,6 +32,7 @@ function Board({
       <label>{name}</label>
       <label>{score}</label>
       <label>{date}</label>
+      <label>{time}</label>
     </div>
   );
 }

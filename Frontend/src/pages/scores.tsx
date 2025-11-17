@@ -10,24 +10,34 @@ import { data } from "react-router-dom";
 function Scores() {
   const [search, setSearch] = useState<string>("");
   const [board, setBoards] = useState<BoardEntry[]>([]);
+  
 
   useEffect(() => {
-    axios.get('/api/score/getRankedScores')
-      .then(res => setBoards(res.data))
-      .catch(err => {console.log(err)})
-  })
+    const fetchScores = async () => {
+      try {
+        const res = search 
+        ? await axios.get(`/api/score/getRankedScore/${search}`)
+        : await axios.get('/api/score/getRankedScores');
+      setBoards(res.data);
+      console.log(res.data)
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    fetchScores();
+  }, [search]);
 
   const boardMapper = () =>
-    board
-    .filter((s) => !search || s.username.includes(search))
-    .map((entry, index) => (
+    board.map((entry, index) => (
       <Board
         bgColor="bg-(--secondary-color)"
         key={index}
         rank={`#${entry.rank}`}
         name={entry.username}
         score={entry.score}
-        date={entry.uploaded}
+        date={entry.date.slice(0,10)}
+        time={entry.date.slice(11,16)}
       />
     ));
 
@@ -52,6 +62,7 @@ function Scores() {
           name={TextData.board.name}
           score={TextData.board.score}
           date={TextData.board.date}
+          time={TextData.board.time}
         />
         {!data ? (
           <div className="m-auto">Loading data...</div>
@@ -72,9 +83,7 @@ function Scores() {
           type="text"
           placeholder={TextData.searchBar.placeholder}
         />
-        <button className="bg-(--primary-color) px-5 py-1 rounded text-(--text-color) font-black hover:opacity-85 border-b-6 border-2 border-(--secondary-color) active:border-2 transition-opacity duration-300">
-          {TextData.searchBar.searchBtn}
-        </button>
+        
       </form>
     </div>
   );
