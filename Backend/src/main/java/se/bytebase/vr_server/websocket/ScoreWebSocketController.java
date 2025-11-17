@@ -23,10 +23,4 @@ public class ScoreWebSocketController {
     public List<ScoreModel> greeting() throws Exception {
         return ScoreFacade.getAllScores(scoreRepository);
     }
-
-    @MessageMapping("/hello")
-    @SendTo("/topic/rankedscores")
-    public List<RankedScoreDto> rankedScores() throws Exception {
-        return ScoreFacade.getRankedScoresWithRanksProper(scoreRepository);
-    }
 }
