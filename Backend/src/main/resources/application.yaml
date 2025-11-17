@@ -4,14 +4,6 @@ server:
 spring:
   application:
     name: server
-
-  web:
-    resources:
-      static-locations: classpath:/static/,classpath:/public/,file:./resources/static/,file:./static/
-      # Enable cache for production, disable for development
-      cache:
-        period: 3600 # 1 hour cache
-
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/unityvr_db}  # Use env var, fallback to localhost
     username: ${SPRING_DATASOURCE_USERNAME:root}
