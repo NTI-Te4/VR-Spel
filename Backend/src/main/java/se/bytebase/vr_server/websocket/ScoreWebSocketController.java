@@ -3,6 +3,7 @@ package se.bytebase.vr_server.websocket;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import se.bytebase.vr_server.dto.RankedScoreDto;
 import se.bytebase.vr_server.facade.ScoreFacade;
 import se.bytebase.vr_server.model.ScoreModel;
 import se.bytebase.vr_server.repository.ScoreRepository;
@@ -20,7 +21,12 @@ public class ScoreWebSocketController {
     @MessageMapping("/hello")
     @SendTo("/topic/scores")
     public List<ScoreModel> greeting() throws Exception {
-        Thread.sleep(1000);
         return ScoreFacade.getAllScores(scoreRepository);
+    }
+
+    @MessageMapping("/hello")
+    @SendTo("/topic/rankedscores")
+    public List<RankedScoreDto> rankedScores() throws Exception {
+        return ScoreFacade.getRankedScoresWithRanksProper(scoreRepository);
     }
 }
