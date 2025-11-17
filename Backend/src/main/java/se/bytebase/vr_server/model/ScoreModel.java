@@ -18,10 +18,10 @@ public class ScoreModel {
     private Long id;
 
     @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime uploaded; // This maps to 'uploaded' in the insert statement
+    @Column(nullable = false, name = "uploaded")
+    private LocalDateTime uploaded;
 
-    @Column(nullable = false, unique = true) // This was a previous potential issue, but not the current 500
+    @Column(nullable = false)
     private String username;
 
     @Column(nullable = false)
