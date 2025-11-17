@@ -58,15 +58,4 @@ public class ScoreController {
   public List<ScoreModel> getScoresByName(@PathVariable String username) {
     return ScoreFacade.getScoresByUser(username, scoreRepository);
   }
-  
-  @GetMapping("/getRankedScore/{username}")
-  public List<RankedScoreDto> getRankedScoresByName(@PathVariable String username) {
-    List<RankedScoreDto> allRankedScores = ScoreFacade.getRankedScoresWithRanksProper(scoreRepository);
-    
-    // Filter to only include scores for the specified user
-    return allRankedScores.stream()
-        .filter(score -> score.getUsername().equals(username))
-        .collect(Collectors.toList());
-  }
-
 }
