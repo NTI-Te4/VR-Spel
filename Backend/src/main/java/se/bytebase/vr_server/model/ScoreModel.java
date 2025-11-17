@@ -13,23 +13,22 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EntityListeners(org.springframework.data.jpa.domain.support.AuditingEntityListener.class)
 public class ScoreModel {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  private Long id;
+    @CreatedDate
+    @Column(nullable = false)
+    private LocalDateTime uploaded; // This maps to 'uploaded' in the insert statement
 
-  @CreatedDate
-  @Column(nullable = false)
-  private LocalDateTime Uploaded;
+    @Column(nullable = false, unique = true) // This was a previous potential issue, but not the current 500
+    private String username;
 
-  @Column(nullable = false, unique = true)
-  private String username;
+    @Column(nullable = false)
+    private int score;
 
-  @Column(nullable = false)
-  private int score;
-
-  public ScoreModel(String username, int score) {
-    this.username = username;
-    this.score = score;
-  }
+    public ScoreModel(String username, int score) {
+        this.username = username;
+        this.score = score;
+    }
 }
