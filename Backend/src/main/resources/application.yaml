@@ -1,11 +1,11 @@
 server:
-  port: ${SERVER_PORT:8002}  # Default to 8002 to match Dockerfile, but configurable via env var
+  port: ${SERVER_PORT:8002}
 
 spring:
   application:
     name: server
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/unityvr_db}  # Use env var, fallback to localhost
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/unityvr_db}
     username: ${SPRING_DATASOURCE_USERNAME:root}
     password: ${SPRING_DATASOURCE_PASSWORD:}
     driver-class-name: com.mysql.cj.jdbc.Driver
